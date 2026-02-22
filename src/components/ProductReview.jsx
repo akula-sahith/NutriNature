@@ -172,26 +172,28 @@ export default function ProductsPreview() {
 
         {/* === Overlapping Packets — fully responsive === */}
         {/* === Overlapping Packets — Perfect Centering === */}
-        {/* === Fanned Out Packets — Fixed Centering === */}
+        {/* === Symmetrical Burst — All coming from center === */}
 <div
   className="relative flex items-center justify-center"
   style={{
     width: "100%",
-    height: "clamp(250px, 60vw, 400px)", // Increased height slightly for better visibility
+    height: "clamp(250px, 60vw, 400px)",
     margin: "0 auto",
+    position: "relative"
   }}
 >
-  {/* Turmeric — Visible on the Left */}
+  {/* Turmeric — Emerges from center to the Left */}
   <motion.div
-    initial={{ opacity: 0, x: -100 }}
-    whileInView={{ opacity: 1, x: -120 }} // Pushes it 120px to the left
+    initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
+    whileInView={{ opacity: 1, x: "-135%" }} // Burst out to the left
     viewport={{ once: true }}
-    transition={{ duration: 0.8, ease: "easeOut" }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
     style={{
       position: "absolute",
       zIndex: 10,
       width: "clamp(110px, 25vw, 180px)",
       height: "auto",
+      left: "50%",
     }}
   >
     <motion.div variants={floatAnimationSlow} animate="animate" style={{ rotate: "-12deg" }}>
@@ -199,17 +201,18 @@ export default function ProductsPreview() {
     </motion.div>
   </motion.div>
 
-  {/* Coriander — Visible on the Right */}
+  {/* Coriander — Emerges from center to the Right */}
   <motion.div
-    initial={{ opacity: 0, x: 100 }}
-    whileInView={{ opacity: 1, x: 120 }} // Pushes it 120px to the right
+    initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
+    whileInView={{ opacity: 1, x: "35%" }} // Burst out to the right
     viewport={{ once: true }}
-    transition={{ duration: 0.8, ease: "easeOut" }}
+    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
     style={{
       position: "absolute",
       zIndex: 10,
       width: "clamp(110px, 25vw, 180px)",
       height: "auto",
+      left: "50%",
     }}
   >
     <motion.div variants={floatAnimationAlt} animate="animate" style={{ rotate: "12deg" }}>
@@ -217,15 +220,16 @@ export default function ProductsPreview() {
     </motion.div>
   </motion.div>
 
-  {/* Chilli — Solidly in the Center */}
+  {/* Chilli — Stays in the Center */}
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    whileInView={{ opacity: 1, scale: 1, x: 0 }}
+    initial={{ opacity: 0, x: "-50%", scale: 0.8 }}
+    whileInView={{ opacity: 1, x: "-50%", scale: 1 }}
     viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: 0.2 }}
+    transition={{ duration: 0.6, delay: 0.3 }}
     style={{
       position: "absolute",
-      zIndex: 30, // Keeps it on top of the others
+      left: "50%",
+      zIndex: 30,
       width: "clamp(130px, 30vw, 220px)",
       height: "auto",
     }}
@@ -235,7 +239,6 @@ export default function ProductsPreview() {
     </motion.div>
   </motion.div>
 </div>
-
         {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 24 }}
