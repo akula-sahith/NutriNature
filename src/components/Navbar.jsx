@@ -44,16 +44,18 @@ export default function Navbar() {
         backgroundColor: scrolled ? "rgba(246,241,232,0.96)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-        transition: "background-color 500ms ease, box-shadow 500ms ease, backdrop-filter 500ms ease",
-        boxShadow: scrolled ? "0 1px 0 rgba(201,125,58,0.15), 0 4px 24px rgba(44,26,14,0.06)" : "none",
+        transition: "background-color 500ms ease, box-shadow 500ms ease",
+        boxShadow: scrolled
+          ? "0 1px 0 rgba(201,125,58,0.15), 0 4px 24px rgba(44,26,14,0.06)"
+          : "none",
       }}
     >
       <div
         style={{
           maxWidth: "1280px",
           margin: "0 auto",
-          padding: "0 1.5rem",
-          height: "88px",
+          padding: "0 1rem",
+          height: "68px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -67,13 +69,14 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             gap: "0.5rem",
+            flexShrink: 0,
           }}
         >
           <img
             src={Logo}
             alt="Nutri Nature Logo"
             style={{
-              height: "5rem",
+              height: "3.5rem",
               width: "auto",
               userSelect: "none",
               cursor: "pointer",
@@ -139,7 +142,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Hamburger */}
+        {/* Hamburger — larger tap target on mobile */}
         <button
           onClick={() => setMenuOpen((v) => !v)}
           className="navbar-hamburger"
@@ -149,12 +152,14 @@ export default function Navbar() {
             background: "none",
             border: "none",
             cursor: "pointer",
-            padding: "0.4rem",
+            padding: "0.6rem",
             display: "flex",
             flexDirection: "column",
             gap: "5px",
             justifyContent: "center",
             alignItems: "center",
+            minWidth: "44px",
+            minHeight: "44px",
           }}
         >
           {[
@@ -177,7 +182,7 @@ export default function Navbar() {
                 display: "block",
                 width: "24px",
                 height: "1.5px",
-                backgroundColor: scrolled ? "#2C1A0E" : "#2C1A0E",
+                backgroundColor: "#2C1A0E",
                 transition: "transform 350ms ease, opacity 350ms ease",
                 transformOrigin: "center",
                 ...style,
@@ -203,7 +208,7 @@ export default function Navbar() {
           style={{
             listStyle: "none",
             margin: 0,
-            padding: "1rem 1.5rem 1.5rem",
+            padding: "0.75rem 1.25rem 1.25rem",
             display: "flex",
             flexDirection: "column",
             gap: "0.1rem",
@@ -215,11 +220,11 @@ export default function Navbar() {
                 to={to}
                 style={{
                   display: "block",
-                  padding: "0.8rem 0",
+                  padding: "0.9rem 0",
                   textDecoration: "none",
                   fontFamily: "'Playfair Display', serif",
                   fontWeight: 600,
-                  fontSize: "1.15rem",
+                  fontSize: "1.1rem",
                   letterSpacing: "0.04em",
                   color: location.pathname === to ? "#C97D3A" : "#6B4C2A",
                   borderBottom: "1px solid rgba(201,125,58,0.12)",
@@ -240,14 +245,15 @@ export default function Navbar() {
               to="/products"
               style={{
                 textDecoration: "none",
-                display: "inline-block",
-                padding: "0.7rem 2rem",
+                display: "block",
+                textAlign: "center",
+                padding: "0.85rem 2rem",
                 borderRadius: "999px",
                 background: "linear-gradient(135deg, #C97D3A 0%, #A85C20 100%)",
                 color: "#FFFFFF",
                 fontFamily: "'DM Sans', sans-serif",
                 fontWeight: 600,
-                fontSize: "0.88rem",
+                fontSize: "0.9rem",
                 letterSpacing: "0.08em",
                 boxShadow: "0 4px 20px rgba(201,125,58,0.35)",
               }}
