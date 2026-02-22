@@ -6,7 +6,7 @@ const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
   { label: "About", to: "/about" },
-  { label: "B2B", to: "/b2b" },
+  { label: "B2B Supply", to: "/b2b" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -54,6 +54,7 @@ export default function Navbar() {
       }}
     >
       {/* Top bar */}
+      {/* Top bar */}
       <div
         style={{
           maxWidth: "1280px",
@@ -63,6 +64,7 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+          gap: "0.5rem", // Adds breathing room between elements on small screens
         }}
       >
         {/* Logo */}
@@ -79,7 +81,7 @@ export default function Navbar() {
             src={Logo}
             alt="Nutri Nature Logo"
             style={{
-              height: "3.4rem",
+              height: "clamp(2.5rem, 8vw, 3.4rem)", // Responsive logo height
               width: "auto",
               userSelect: "none",
               cursor: "pointer",
@@ -91,12 +93,12 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* Desktop Links */}
+        {/* Desktop Links (Hidden on mobile) */}
         <ul
           className="navbar-desktop-links"
           style={{
             display: "flex",
-            gap: "2.5rem",
+            gap: "2rem",
             listStyle: "none",
             margin: 0,
             padding: 0,
@@ -114,168 +116,83 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        <div className="navbar-desktop-links">
+        {/* Persistent CTA & Hamburger Wrapper */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <Link
             to="/products"
+            className="navbar-cta-button" // Class for media query styling
             style={{
               textDecoration: "none",
-              padding: "0.6rem 1.6rem",
+              padding: "0.5rem 1.2rem", // Slightly tighter for mobile
               borderRadius: "999px",
               background: "linear-gradient(135deg, #C97D3A 0%, #A85C20 100%)",
               color: "#FFFFFF",
               fontFamily: "'DM Sans', sans-serif",
               fontWeight: 600,
-              fontSize: "0.82rem",
-              letterSpacing: "0.08em",
+              fontSize: "0.75rem", // Smaller for mobile
+              letterSpacing: "0.05em",
               boxShadow: "0 4px 20px rgba(201,125,58,0.35)",
-              display: "inline-block",
-              transition: "transform 200ms ease, box-shadow 200ms ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "scale(1.04)";
-              e.currentTarget.style.boxShadow =
-                "0 8px 32px rgba(201,125,58,0.45)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow =
-                "0 4px 20px rgba(201,125,58,0.35)";
+              textAlign: "center",
+              whiteSpace: "nowrap",
+              transition: "transform 200ms ease",
             }}
           >
             ORDER NOW
           </Link>
-        </div>
 
-        {/* Hamburger — 44px tap target */}
-        <button
-          onClick={() => setMenuOpen((v) => !v)}
-          className="navbar-hamburger"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          style={{
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: "0.5rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "5px",
-            justifyContent: "center",
-            alignItems: "center",
-            minWidth: "44px",
-            minHeight: "44px",
-            flexShrink: 0,
-          }}
-        >
-          <span
+          {/* Hamburger */}
+          <button
+            onClick={() => setMenuOpen((v) => !v)}
+            className="navbar-hamburger"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             style={{
-              display: "block",
-              width: "22px",
-              height: "2px",
-              borderRadius: "2px",
-              backgroundColor: "#2C1A0E",
-              transition: "transform 350ms ease",
-              transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
-            }}
-          />
-          <span
-            style={{
-              display: "block",
-              width: "22px",
-              height: "2px",
-              borderRadius: "2px",
-              backgroundColor: "#2C1A0E",
-              transition: "opacity 250ms ease, transform 250ms ease",
-              opacity: menuOpen ? 0 : 1,
-              transform: menuOpen ? "scaleX(0)" : "scaleX(1)",
-            }}
-          />
-          <span
-            style={{
-              display: "block",
-              width: "22px",
-              height: "2px",
-              borderRadius: "2px",
-              backgroundColor: "#2C1A0E",
-              transition: "transform 350ms ease",
-              transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
-            }}
-          />
-        </button>
-      </div>
-
-      {/*
-        Mobile Menu — CSS grid row trick:
-        gridTemplateRows: "0fr" → "1fr" animates height without JS measurement.
-        The inner div must have overflow:hidden and no padding/border.
-      */}
-      <div
-        className="navbar-mobile-menu"
-        style={{
-          display: "grid",
-          gridTemplateRows: menuOpen ? "1fr" : "0fr",
-          transition: "grid-template-rows 380ms cubic-bezier(0.4, 0, 0.2, 1)",
-          backgroundColor: "#F6F1E8",
-          borderTop: "1px solid rgba(201,125,58,0.1)",
-        }}
-      >
-        <div style={{ overflow: "hidden", minHeight: 0 }}>
-          <ul
-            style={{
-              listStyle: "none",
-              margin: 0,
-              padding: "0.25rem 1.25rem 1.5rem",
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "0.25rem",
               display: "flex",
               flexDirection: "column",
+              gap: "5px",
+              justifyContent: "center",
+              alignItems: "center",
+              minWidth: "40px",
+              minHeight: "40px",
+              flexShrink: 0,
             }}
           >
-            {NAV_LINKS.map(({ label, to }) => (
-              <li key={to}>
-                <Link
-                  to={to}
-                  onClick={() => setMenuOpen(false)}
-                  style={{
-                    display: "block",
-                    padding: "0.9rem 0",
-                    textDecoration: "none",
-                    fontFamily: "'Playfair Display', serif",
-                    fontWeight: 600,
-                    fontSize: "1.1rem",
-                    letterSpacing: "0.04em",
-                    color: location.pathname === to ? "#C97D3A" : "#6B4C2A",
-                    borderBottom: "1px solid rgba(201,125,58,0.1)",
-                    transition: "color 200ms",
-                  }}
-                >
-                  {label}
-                </Link>
-              </li>
-            ))}
-            <li style={{ paddingTop: "1.25rem" }}>
-              <Link
-                to="/products"
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  textDecoration: "none",
-                  display: "block",
-                  textAlign: "center",
-                  padding: "0.9rem 2rem",
-                  borderRadius: "999px",
-                  background:
-                    "linear-gradient(135deg, #C97D3A 0%, #A85C20 100%)",
-                  color: "#FFFFFF",
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontWeight: 600,
-                  fontSize: "0.9rem",
-                  letterSpacing: "0.08em",
-                  boxShadow: "0 4px 20px rgba(201,125,58,0.35)",
-                }}
-              >
-                Order Now
-              </Link>
-            </li>
-          </ul>
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "2px",
+                backgroundColor: "#2C1A0E",
+                transition: "transform 350ms ease",
+                transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "2px",
+                backgroundColor: "#2C1A0E",
+                transition: "opacity 250ms ease",
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              style={{
+                display: "block",
+                width: "20px",
+                height: "2px",
+                backgroundColor: "#2C1A0E",
+                transition: "transform 350ms ease",
+                transform: menuOpen
+                  ? "translateY(-7px) rotate(-45deg)"
+                  : "none",
+              }}
+            />
+          </button>
         </div>
       </div>
 

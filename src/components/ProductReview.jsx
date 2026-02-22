@@ -173,72 +173,88 @@ export default function ProductsPreview() {
         {/* === Overlapping Packets — fully responsive === */}
         {/* === Overlapping Packets — Perfect Centering === */}
         {/* === Symmetrical Burst — All coming from center === */}
-<div
-  className="relative flex items-center justify-center"
-  style={{
-    width: "100%",
-    height: "clamp(250px, 60vw, 400px)",
-    margin: "0 auto",
-    position: "relative"
-  }}
->
-  {/* Turmeric — Emerges from center to the Left */}
-  <motion.div
-    initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
-    whileInView={{ opacity: 1, x: "-135%" }} // Burst out to the left
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-    style={{
-      position: "absolute",
-      zIndex: 10,
-      width: "clamp(110px, 25vw, 180px)",
-      height: "auto",
-      left: "50%",
-    }}
-  >
-    <motion.div variants={floatAnimationSlow} animate="animate" style={{ rotate: "-12deg" }}>
-      <PacketCard label="Turmeric" imgSrc={chilliPacket} alt="Turmeric" />
-    </motion.div>
-  </motion.div>
+        <div
+          className="relative flex items-center justify-center"
+          style={{
+            width: "100%",
+            height: "clamp(250px, 60vw, 400px)",
+            margin: "0 auto",
+            position: "relative",
+          }}
+        >
+          {/* Turmeric — Emerges from center to the Left */}
+          <motion.div
+            initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
+            whileInView={{ opacity: 1, x: "-135%" }} // Burst out to the left
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            style={{
+              position: "absolute",
+              zIndex: 10,
+              width: "clamp(110px, 25vw, 180px)",
+              height: "auto",
+              left: "50%",
+            }}
+          >
+            <motion.div
+              variants={floatAnimationSlow}
+              animate="animate"
+              style={{ rotate: "-12deg" }}
+            >
+              <PacketCard
+                label="Turmeric"
+                imgSrc={chilliPacket}
+                alt="Turmeric"
+              />
+            </motion.div>
+          </motion.div>
 
-  {/* Coriander — Emerges from center to the Right */}
-  <motion.div
-    initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
-    whileInView={{ opacity: 1, x: "35%" }} // Burst out to the right
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-    style={{
-      position: "absolute",
-      zIndex: 10,
-      width: "clamp(110px, 25vw, 180px)",
-      height: "auto",
-      left: "50%",
-    }}
-  >
-    <motion.div variants={floatAnimationAlt} animate="animate" style={{ rotate: "12deg" }}>
-      <PacketCard label="Coriander" imgSrc={chilliPacket} alt="Coriander" />
-    </motion.div>
-  </motion.div>
+          {/* Coriander — Emerges from center to the Right */}
+          <motion.div
+            initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
+            whileInView={{ opacity: 1, x: "35%" }} // Burst out to the right
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            style={{
+              position: "absolute",
+              zIndex: 10,
+              width: "clamp(110px, 25vw, 180px)",
+              height: "auto",
+              left: "50%",
+            }}
+          >
+            <motion.div
+              variants={floatAnimationAlt}
+              animate="animate"
+              style={{ rotate: "12deg" }}
+            >
+              <PacketCard
+                label="Coriander"
+                imgSrc={chilliPacket}
+                alt="Coriander"
+              />
+            </motion.div>
+          </motion.div>
 
-  {/* Chilli — Stays in the Center */}
-  <motion.div
-    initial={{ opacity: 0, x: "-50%", scale: 0.8 }}
-    whileInView={{ opacity: 1, x: "-50%", scale: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6, delay: 0.3 }}
-    style={{
-      position: "absolute",
-      left: "50%",
-      zIndex: 30,
-      width: "clamp(130px, 30vw, 220px)",
-      height: "auto",
-    }}
-  >
-    <motion.div variants={floatAnimation} animate="animate">
-      <PacketCard label="Chilli" imgSrc={chilliPacket} alt="Chilli" />
-    </motion.div>
-  </motion.div>
-</div>
+          {/* Chilli — Stays in the Center */}
+          <motion.div
+            initial={{ opacity: 0, x: "-50%", scale: 0.8 }}
+            whileInView={{ opacity: 1, x: "-50%", scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            style={{
+              position: "absolute",
+              left: "50%",
+              zIndex: 30,
+              width: "clamp(130px, 30vw, 220px)",
+              height: "auto",
+            }}
+          >
+            <motion.div variants={floatAnimation} animate="animate">
+              <PacketCard label="Chilli" imgSrc={chilliPacket} alt="Chilli" />
+            </motion.div>
+          </motion.div>
+        </div>
         {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 24 }}
