@@ -13,8 +13,6 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [mobileHeight, setMobileHeight] = useState(0);
-  const menuRef = useRef(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -23,14 +21,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close menu on route change
   useEffect(() => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  // Lock body scroll when menu is open on mobile
   useEffect(() => {
-    if (menuRef.current) {
-      setMobileHeight(menuOpen ? menuRef.current.scrollHeight : 0);
-    }
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   return (
@@ -41,21 +42,24 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 1000,
-        backgroundColor: scrolled ? "rgba(246,241,232,0.96)" : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-        transition: "background-color 500ms ease, box-shadow 500ms ease",
-        boxShadow: scrolled
-          ? "0 1px 0 rgba(201,125,58,0.15), 0 4px 24px rgba(44,26,14,0.06)"
-          : "none",
+        backgroundColor:
+          scrolled || menuOpen ? "rgba(246,241,232,0.98)" : "transparent",
+        backdropFilter: scrolled || menuOpen ? "blur(12px)" : "none",
+        WebkitBackdropFilter: scrolled || menuOpen ? "blur(12px)" : "none",
+        transition: "background-color 400ms ease, box-shadow 400ms ease",
+        boxShadow:
+          scrolled || menuOpen
+            ? "0 1px 0 rgba(201,125,58,0.15), 0 4px 24px rgba(44,26,14,0.06)"
+            : "none",
       }}
     >
+      {/* Top bar */}
       <div
         style={{
           maxWidth: "1280px",
           margin: "0 auto",
           padding: "0 1rem",
-          height: "68px",
+          height: "64px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -68,7 +72,6 @@ export default function Navbar() {
             textDecoration: "none",
             display: "flex",
             alignItems: "center",
-            gap: "0.5rem",
             flexShrink: 0,
           }}
         >
@@ -76,7 +79,7 @@ export default function Navbar() {
             src={Logo}
             alt="Nutri Nature Logo"
             style={{
-              height: "3.5rem",
+              height: "3.4rem",
               width: "auto",
               userSelect: "none",
               cursor: "pointer",
@@ -90,6 +93,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <ul
+          className="navbar-desktop-links"
           style={{
             display: "flex",
             gap: "2.5rem",
@@ -97,7 +101,6 @@ export default function Navbar() {
             margin: 0,
             padding: 0,
           }}
-          className="navbar-desktop-links"
         >
           {NAV_LINKS.map(({ label, to }) => (
             <li key={to}>
@@ -131,28 +134,30 @@ export default function Navbar() {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.04)";
-              e.currentTarget.style.boxShadow = "0 8px 32px rgba(201,125,58,0.45)";
+              e.currentTarget.style.boxShadow =
+                "0 8px 32px rgba(201,125,58,0.45)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
-              e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,125,58,0.35)";
+              e.currentTarget.style.boxShadow =
+                "0 4px 20px rgba(201,125,58,0.35)";
             }}
           >
             ORDER NOW
           </Link>
         </div>
 
-        {/* Hamburger — larger tap target on mobile */}
+        {/* Hamburger — 44px tap target */}
         <button
           onClick={() => setMenuOpen((v) => !v)}
           className="navbar-hamburger"
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           style={{
             background: "none",
             border: "none",
             cursor: "pointer",
-            padding: "0.6rem",
+            padding: "0.5rem",
             display: "flex",
             flexDirection: "column",
             gap: "5px",
@@ -160,149 +165,160 @@ export default function Navbar() {
             alignItems: "center",
             minWidth: "44px",
             minHeight: "44px",
+            flexShrink: 0,
           }}
         >
-          {[
-            {
-              transform: menuOpen ? "translateY(6.5px) rotate(45deg)" : "none",
-              opacity: 1,
-            },
-            {
-              transform: "none",
+          <span
+            style={{
+              display: "block",
+              width: "22px",
+              height: "2px",
+              borderRadius: "2px",
+              backgroundColor: "#2C1A0E",
+              transition: "transform 350ms ease",
+              transform: menuOpen ? "translateY(7px) rotate(45deg)" : "none",
+            }}
+          />
+          <span
+            style={{
+              display: "block",
+              width: "22px",
+              height: "2px",
+              borderRadius: "2px",
+              backgroundColor: "#2C1A0E",
+              transition: "opacity 250ms ease, transform 250ms ease",
               opacity: menuOpen ? 0 : 1,
-            },
-            {
-              transform: menuOpen ? "translateY(-6.5px) rotate(-45deg)" : "none",
-              opacity: 1,
-            },
-          ].map((style, i) => (
-            <span
-              key={i}
-              style={{
-                display: "block",
-                width: "24px",
-                height: "1.5px",
-                backgroundColor: "#2C1A0E",
-                transition: "transform 350ms ease, opacity 350ms ease",
-                transformOrigin: "center",
-                ...style,
-              }}
-            />
-          ))}
+              transform: menuOpen ? "scaleX(0)" : "scaleX(1)",
+            }}
+          />
+          <span
+            style={{
+              display: "block",
+              width: "22px",
+              height: "2px",
+              borderRadius: "2px",
+              backgroundColor: "#2C1A0E",
+              transition: "transform 350ms ease",
+              transform: menuOpen ? "translateY(-7px) rotate(-45deg)" : "none",
+            }}
+          />
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/*
+        Mobile Menu — CSS grid row trick:
+        gridTemplateRows: "0fr" → "1fr" animates height without JS measurement.
+        The inner div must have overflow:hidden and no padding/border.
+      */}
       <div
-        ref={menuRef}
-        style={{
-          overflow: "hidden",
-          maxHeight: `${mobileHeight}px`,
-          transition: "max-height 450ms cubic-bezier(0.4, 0, 0.2, 1)",
-          backgroundColor: "#F6F1E8",
-          borderTop: menuOpen ? "1px solid rgba(201,125,58,0.15)" : "none",
-        }}
         className="navbar-mobile-menu"
+        style={{
+          display: "grid",
+          gridTemplateRows: menuOpen ? "1fr" : "0fr",
+          transition: "grid-template-rows 380ms cubic-bezier(0.4, 0, 0.2, 1)",
+          backgroundColor: "#F6F1E8",
+          borderTop: "1px solid rgba(201,125,58,0.1)",
+        }}
       >
-        <ul
-          style={{
-            listStyle: "none",
-            margin: 0,
-            padding: "0.75rem 1.25rem 1.25rem",
-            display: "flex",
-            flexDirection: "column",
-            gap: "0.1rem",
-          }}
-        >
-          {NAV_LINKS.map(({ label, to }) => (
-            <li key={to}>
+        <div style={{ overflow: "hidden", minHeight: 0 }}>
+          <ul
+            style={{
+              listStyle: "none",
+              margin: 0,
+              padding: "0.25rem 1.25rem 1.5rem",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            {NAV_LINKS.map(({ label, to }) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    display: "block",
+                    padding: "0.9rem 0",
+                    textDecoration: "none",
+                    fontFamily: "'Playfair Display', serif",
+                    fontWeight: 600,
+                    fontSize: "1.1rem",
+                    letterSpacing: "0.04em",
+                    color: location.pathname === to ? "#C97D3A" : "#6B4C2A",
+                    borderBottom: "1px solid rgba(201,125,58,0.1)",
+                    transition: "color 200ms",
+                  }}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+            <li style={{ paddingTop: "1.25rem" }}>
               <Link
-                to={to}
+                to="/products"
+                onClick={() => setMenuOpen(false)}
                 style={{
-                  display: "block",
-                  padding: "0.9rem 0",
                   textDecoration: "none",
-                  fontFamily: "'Playfair Display', serif",
+                  display: "block",
+                  textAlign: "center",
+                  padding: "0.9rem 2rem",
+                  borderRadius: "999px",
+                  background:
+                    "linear-gradient(135deg, #C97D3A 0%, #A85C20 100%)",
+                  color: "#FFFFFF",
+                  fontFamily: "'DM Sans', sans-serif",
                   fontWeight: 600,
-                  fontSize: "1.1rem",
-                  letterSpacing: "0.04em",
-                  color: location.pathname === to ? "#C97D3A" : "#6B4C2A",
-                  borderBottom: "1px solid rgba(201,125,58,0.12)",
-                  transition: "color 200ms",
+                  fontSize: "0.9rem",
+                  letterSpacing: "0.08em",
+                  boxShadow: "0 4px 20px rgba(201,125,58,0.35)",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#C97D3A")}
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.color =
-                    location.pathname === to ? "#C97D3A" : "#6B4C2A")
-                }
               >
-                {label}
+                Order Now
               </Link>
             </li>
-          ))}
-          <li style={{ paddingTop: "1rem" }}>
-            <Link
-              to="/products"
-              style={{
-                textDecoration: "none",
-                display: "block",
-                textAlign: "center",
-                padding: "0.85rem 2rem",
-                borderRadius: "999px",
-                background: "linear-gradient(135deg, #C97D3A 0%, #A85C20 100%)",
-                color: "#FFFFFF",
-                fontFamily: "'DM Sans', sans-serif",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                letterSpacing: "0.08em",
-                boxShadow: "0 4px 20px rgba(201,125,58,0.35)",
-              }}
-            >
-              Order Now
-            </Link>
-          </li>
-        </ul>
+          </ul>
+        </div>
       </div>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
-        .navbar-desktop-links {
-          display: none;
-        }
-        .navbar-hamburger {
-          display: flex;
-        }
-        .navbar-mobile-menu {
-          display: block;
-        }
+  /* Mobile Defaults (Small Screens) */
+  .navbar-desktop-links { 
+    display: none !important; 
+  }
+  .navbar-hamburger { 
+    display: flex !important; 
+  }
+  .navbar-mobile-menu { 
+    display: grid; 
+  }
 
-        @media (min-width: 768px) {
-          .navbar-desktop-links {
-            display: flex;
-          }
-          .navbar-hamburger {
-            display: none !important;
-          }
-          .navbar-mobile-menu {
-            display: none !important;
-          }
-        }
-      `}</style>
+  /* Desktop Styles (768px and up) */
+  @media (min-width: 768px) {
+    .navbar-desktop-links { 
+      display: flex !important; 
+    }
+    .navbar-hamburger { 
+      display: none !important; 
+    }
+    .navbar-mobile-menu { 
+      display: none !important; 
+    }
+  }
+`}</style>
     </nav>
   );
 }
 
 function NavLink({ to, label, active, scrolled }) {
   const [hovered, setHovered] = useState(false);
-
   const color = active
     ? "#C97D3A"
     : hovered
-    ? "#C97D3A"
-    : scrolled
-    ? "#6B4C2A"
-    : "#2C1A0E";
+      ? "#C97D3A"
+      : scrolled
+        ? "#6B4C2A"
+        : "#2C1A0E";
 
   return (
     <Link
