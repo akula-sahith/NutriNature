@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
+import ProductPage from "./pages/ProductPage";
 // import Products from "./pages/Products";
 // import Chilli from "./pages/Chilli";
 // import Turmeric from "./pages/Turmeric";
@@ -15,12 +16,12 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/products" element={<Products />} />
-        <Route path="/products/chilli" element={<Chilli />} />
-        <Route path="/products/turmeric" element={<Turmeric />} />
-        <Route path="/products/coriander" element={<Coriander />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} /> */}
+        <Route path="/products" element={<ProductPage/>} />
+        {/* // <Route path="/products/chilli" element={<Chilli />} />
+        // <Route path="/products/turmeric" element={<Turmeric />} />
+        // <Route path="/products/coriander" element={<Coriander />} />
+        // <Route path="/about" element={<About />} />
+        // <Route path="/contact" element={<Contact />} /> */}
       </Routes>
       {/* <Footer /> */}
     </BrowserRouter>
