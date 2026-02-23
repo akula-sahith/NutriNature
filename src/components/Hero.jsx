@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import spices from "../assets/spices.png";
-
+import { useNavigate } from "react-router-dom";
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i = 0) => ({
@@ -9,6 +9,8 @@ const fadeUp = {
     transition: { duration: 0.6, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+// const navigate = useNavigate();
 
 // Reduced float range for mobile perf
 const floatAnimation = {
@@ -23,6 +25,7 @@ const floatAnimation = {
 };
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <section
       className="relative min-h-screen flex items-center overflow-hidden"
@@ -323,6 +326,7 @@ export default function Hero() {
                   cursor: "pointer",
                   minHeight: "44px",
                 }}
+                onClick={()=>navigate("/products")}
               >
                 Explore Products
               </motion.button>
@@ -343,6 +347,7 @@ export default function Hero() {
                   minHeight: "44px",
                   padding: "0 4px",
                 }}
+                onClick={()=>navigate("/about")}
               >
                 Our Story
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
