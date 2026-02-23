@@ -446,18 +446,6 @@ export default function Products() {
         />
       ))}
 
-      {/* Footer Strip */}
-      <div
-        className="w-full py-8 text-center"
-        style={{ background: "#1A120B" }}
-      >
-        <p
-          className="text-xs tracking-widest uppercase"
-          style={{ color: "#8a7a6a" }}
-        >
-          © 2025 NutriNature · Premium Indian Spices · All Rights Reserved
-        </p>
-      </div>
     </>
   );
 }
