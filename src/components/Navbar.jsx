@@ -5,6 +5,7 @@ import Logo from "../assets/LogoTrans2.png";
 const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
+  { label: "Quality", to: "/quality" },
   { label: "About", to: "/about" },
   { label: "B2B Supply", to: "/b2b" },
   { label: "Contact", to: "/contact" },

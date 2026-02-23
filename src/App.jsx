@@ -5,13 +5,14 @@ import ProductPage from "./pages/ProductPage";
 import ContactPage from "./pages/ContactPage";
 import B2BPage from "./pages/B2BPage";
 import AboutPage from "./pages/AboutPage";
+import QualityPage from "./pages/QualityPage";
 // import Products from "./pages/Products";
 // import Chilli from "./pages/Chilli";
 // import Turmeric from "./pages/Turmeric";
 // import Coriander from "./pages/Coriander";
 // import About from "./pages/About";
 // import Contact from "./pages/Contact";
-// import Footer from "./components/Footer";
+import Footer from "./components/Footer";
 import './App.css'
 function App() {
   return (
@@ -23,13 +24,14 @@ function App() {
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/b2b" element={<B2BPage/>}/>
         <Route path="/about" element={<AboutPage/>}/>
+        <Route path="/quality" element={<QualityPage/>}/>
         {/* // <Route path="/products/chilli" element={<Chilli />} />
         // <Route path="/products/turmeric" element={<Turmeric />} />
         // <Route path="/products/coriander" element={<Coriander />} />
         // <Route path="/about" element={<About />} />
         // <Route path="/contact" element={<Contact />} /> */}
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
