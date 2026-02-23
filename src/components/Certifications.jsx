@@ -1,4 +1,8 @@
 import { motion } from "framer-motion";
+import fssai from "../assets/fssai.jpg";
+import gmp from "../assets/gmp.png";
+import HACCP from "../assets/HACCP.jpg";
+import iso from "../assets/Iso.png";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -24,53 +28,22 @@ const certifications = [
   {
     name: "FSSAI Licensed",
     subtitle: "Food Safety & Standards",
-    badge: "✓ Active",
-    icon: (
-      <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="68">
-        <rect x="4" y="4" width="72" height="52" rx="8" fill="#FFF8ED" stroke="#E1AD01" strokeWidth="1.5" />
-        <text x="40" y="24" textAnchor="middle" fontFamily="serif" fontWeight="bold" fontSize="11" fill="#2E2A25">FSSAI</text>
-        <text x="40" y="36" textAnchor="middle" fontFamily="sans-serif" fontSize="7.5" fill="#9C806A">Lic. No. XXXXXX</text>
-        <path d="M28 44 l5 5 l12-12" stroke="#E1AD01" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    image: fssai,
   },
   {
     name: "ISO Ready",
     subtitle: "ISO 22000 : 2018",
-    badge: "In Progress",
-    icon: (
-      <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="68">
-        <rect x="4" y="4" width="72" height="52" rx="8" fill="#FFF8ED" stroke="#B02A1F" strokeWidth="1.5" strokeDasharray="4 3" />
-        <circle cx="40" cy="30" r="14" stroke="#B02A1F" strokeWidth="1.5" fill="none" />
-        <text x="40" y="26" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold" fontSize="8.5" fill="#2E2A25">ISO</text>
-        <text x="40" y="35" textAnchor="middle" fontFamily="sans-serif" fontSize="6.5" fill="#9C806A">22000:2018</text>
-      </svg>
-    ),
+    image: iso,
   },
   {
     name: "HACCP Ready",
     subtitle: "Hazard Analysis & CCP",
-    badge: "In Progress",
-    icon: (
-      <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="68">
-        <rect x="4" y="4" width="72" height="52" rx="8" fill="#FFF8ED" stroke="#B02A1F" strokeWidth="1.5" strokeDasharray="4 3" />
-        <path d="M40 14 L52 22 L52 38 L40 46 L28 38 L28 22 Z" fill="none" stroke="#C97D3A" strokeWidth="1.5" />
-        <text x="40" y="33" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold" fontSize="8" fill="#2E2A25">HACCP</text>
-      </svg>
-    ),
+    image: HACCP,
   },
   {
     name: "GMP Compliant",
     subtitle: "Good Manufacturing Practice",
-    badge: "✓ Active",
-    icon: (
-      <svg viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="90" height="68">
-        <rect x="4" y="4" width="72" height="52" rx="8" fill="#FFF8ED" stroke="#E1AD01" strokeWidth="1.5" />
-        <rect x="18" y="18" width="44" height="24" rx="4" fill="none" stroke="#C97D3A" strokeWidth="1.2" />
-        <text x="40" y="27" textAnchor="middle" fontFamily="sans-serif" fontWeight="bold" fontSize="8" fill="#2E2A25">GMP</text>
-        <text x="40" y="36" textAnchor="middle" fontFamily="sans-serif" fontSize="6" fill="#9C806A">Certified</text>
-      </svg>
-    ),
+    image: gmp,
   },
 ];
 
@@ -79,13 +52,21 @@ export default function Certifications() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+        
+        .cert-card-img {
+          transition: transform 0.5s ease;
+          object-fit: contain;
+        }
+        .cert-card:hover .cert-card-img {
+          transform: scale(1.05);
+        }
       `}</style>
 
       <section
         style={{ backgroundColor: "#FFF8ED", fontFamily: "'DM Sans', sans-serif" }}
         className="py-24 px-5 md:px-12 lg:px-20 relative overflow-hidden"
       >
-        {/* Subtle background blob */}
+        {/* Subtle background decorative blobs */}
         <div style={{ position: "absolute", top: "10%", right: 0, width: "min(420px,65vw)", height: "min(420px,65vw)", borderRadius: "50%", opacity: 0.12, background: "radial-gradient(circle, #E1AD01 0%, transparent 70%)", filter: "blur(80px)", pointerEvents: "none" }} />
         <div style={{ position: "absolute", bottom: "5%", left: 0, width: "min(300px,50vw)", height: "min(300px,50vw)", borderRadius: "50%", opacity: 0.08, background: "radial-gradient(circle, #C97D3A 0%, transparent 70%)", filter: "blur(80px)", pointerEvents: "none" }} />
 
@@ -130,7 +111,6 @@ export default function Certifications() {
               <span style={{ color: "#C97D3A", fontStyle: "italic" }}>Trust</span>
             </motion.h2>
 
-            {/* Gold underline animation */}
             <motion.div
               initial={{ scaleX: 0, opacity: 0 }}
               whileInView={{ scaleX: 1, opacity: 1 }}
@@ -156,120 +136,85 @@ export default function Certifications() {
                 margin: 0,
               }}
             >
-              We are committed to obtaining the highest certifications for food safety and quality.
+              Nutri Nature adheres to the most stringent international hygiene standards to deliver pure, unadulterated spices.
             </motion.p>
           </motion.div>
 
           {/* ── Certification Cards ── */}
-          <motion.div
-            className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert, i) => (
               <motion.div
                 key={cert.name}
+                className="cert-card"
                 variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
                 custom={i}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 12px 40px rgba(44,26,14,0.13)",
-                  transition: { type: "spring", stiffness: 280, damping: 18 },
-                }}
                 style={{
                   background: "#FFFFFF",
-                  borderRadius: "1rem",
-                  padding: "clamp(1.25rem, 3vw, 1.75rem) 1.25rem",
-                  boxShadow: "0 4px 24px rgba(44,26,14,0.07), 0 1px 4px rgba(44,26,14,0.04)",
-                  border: "1px solid rgba(201,125,58,0.1)",
+                  borderRadius: "1.25rem",
+                  padding: "2.5rem 1.5rem",
+                  boxShadow: "0 10px 30px rgba(44,26,14,0.05)",
+                  border: "1px solid rgba(201,125,58,0.08)",
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  gap: "1rem",
-                  cursor: "default",
-                  position: "relative",
-                  overflow: "hidden",
+                  textAlign: "center",
                 }}
               >
-                {/* Top accent bar */}
-                <div style={{
-                  position: "absolute",
-                  top: 0, left: 0, right: 0,
-                  height: "2.5px",
-                  background: cert.badge.startsWith("✓")
-                    ? "linear-gradient(90deg, #E1AD01, #C97D3A)"
-                    : "linear-gradient(90deg, #C97D3A55, #E1AD0155)",
-                }} />
-
-                {/* Logo / Icon */}
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    maxHeight: "68px",
-                    width: "100%",
-                  }}
-                >
-                  {cert.icon}
+                {/* Image Container - Always Full Color */}
+                <div style={{ height: "100px", width: "100%", marginBottom: "1.5rem", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                  <img 
+                    src={cert.image} 
+                    alt={cert.name} 
+                    className="cert-card-img"
+                    style={{ maxHeight: "100%", maxWidth: "140px" }}
+                  />
                 </div>
 
-                {/* Divider */}
-                <div style={{ width: "100%", height: "1px", background: "rgba(201,125,58,0.12)" }} />
+                <div style={{ width: "40px", height: "1.5px", background: "#E1AD01", opacity: 0.4, marginBottom: "1.25rem" }} />
 
-                {/* Name & subtitle */}
-                <div style={{ textAlign: "center" }}>
-                  <p
-                    style={{
-                      fontFamily: "'Playfair Display', serif",
-                      color: "#2E2A25",
-                      fontWeight: 700,
-                      fontSize: "clamp(0.875rem, 2vw, 1rem)",
-                      margin: "0 0 3px",
-                      lineHeight: 1.3,
-                    }}
-                  >
-                    {cert.name}
-                  </p>
-                  <p
-                    style={{
-                      fontFamily: "'DM Sans', sans-serif",
-                      color: "#9C806A",
-                      fontSize: "clamp(0.65rem, 1.5vw, 0.75rem)",
-                      margin: "0 0 8px",
-                      lineHeight: 1.4,
-                    }}
-                  >
-                    {cert.subtitle}
-                  </p>
-
-                  {/* Status badge */}
-                  
-                </div>
+                <h3 style={{ 
+                  fontFamily: "'Playfair Display', serif", 
+                  fontSize: "1.15rem", 
+                  color: "#2E2A25", 
+                  margin: "0 0 0.5rem",
+                  fontWeight: 700
+                }}>
+                  {cert.name}
+                </h3>
+                
+                <p style={{ 
+                  fontSize: "0.75rem", 
+                  color: "#9C806A", 
+                  margin: 0, 
+                  textTransform: "uppercase", 
+                  letterSpacing: "0.05em",
+                  lineHeight: 1.4
+                }}>
+                  {cert.subtitle}
+                </p>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
 
-          {/* ── Bottom note ── */}
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.65, delay: 0.5, ease: EASE }}
+            variants={fadeUp}
+            whileInView="visible"
+            initial="hidden"
+            viewport={{ once: true }}
             style={{
               textAlign: "center",
-              fontFamily: "'DM Sans', sans-serif",
               color: "#B8A898",
-              fontSize: "0.8rem",
-              lineHeight: 1.6,
-              marginTop: "2.5rem",
+              fontSize: "0.85rem",
+              marginTop: "3.5rem",
+              lineHeight: 1.6
             }}
           >
-            <br />
-            Actual certification documents available upon request.
+            Our processing facility is fully compliant with food safety regulations.<br />
+            Actual certification documents are available for B2B partners upon request.
           </motion.p>
-
         </div>
       </section>
     </>
