@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 // Ensure these paths are correct for your project
 import ChilliImage from "../assets/ChilliImage.png";
 import ChilliPacket from "../assets/chilli-packet.png";
-
+import turmeric from "../assets/turmeric.png";
 // ─── Particle Component ───────────────────────────────────────
 function Particle({ color, delay, x, size }) {
   return (
@@ -228,7 +228,7 @@ const SPICES = [
     title: "Golden Turmeric Powder",
     wholeName: "Lakadong Turmeric Roots",
     accent: "#D4A017",
-    wholeImage: ChilliImage,
+    wholeImage: turmeric,
     packetImage: ChilliPacket,
     buyLink: " https://amzn.eu/d/8Ig6ThP", // Add your link here
     particleColors: ["#E1AD01", "#f0c840", "#c89a00", "#daba20", "#ffe060"],
