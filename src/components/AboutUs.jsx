@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import SpiceImage from "../assets/image.png";
+import SpiceImage from "../assets/image1.png";
 /* ── Animation variants ── */
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
