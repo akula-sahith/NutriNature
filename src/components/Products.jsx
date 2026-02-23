@@ -1,9 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
+// Ensure these paths are correct for your project
 import ChilliImage from "../assets/ChilliImage.png";
 import ChilliPacket from "../assets/chilli-packet.png";
 
-// ─── Particle Component (Remains same) ───────────────────────────────────────
+// ─── Particle Component ───────────────────────────────────────
 function Particle({ color, delay, x, size }) {
   return (
     <motion.div
@@ -101,6 +102,18 @@ function ProductSection({ spice, reverse, bg }) {
   const inView = useInView(ref, { threshold: 0.2 });
   const played = useRef(false);
 
+  const handleContact = () => {
+    // Navigates to contact section or page
+    window.location.href = "/contact"; 
+  };
+
+  const handleBuy = () => {
+    // Opens the specific product link in a new tab
+    if (spice.buyLink) {
+      window.open(spice.buyLink, "_blank");
+    }
+  };
+
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
@@ -114,18 +127,15 @@ function ProductSection({ spice, reverse, bg }) {
     <section ref={ref} className="w-full py-24 px-6 md:px-12 lg:px-20" style={{ background: bg }}>
       <div className={`max-w-7xl mx-auto flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-12 lg:gap-20 items-center`}>
         
-        {/* Animation Side */}
         <div className="w-full lg:w-1/2 flex items-center justify-center min-h-[500px]">
           <SpiceAnimation spice={spice} inView={inView} played={played} />
         </div>
 
-        {/* Details Side */}
         <motion.div 
           className="w-full lg:w-1/2 flex flex-col gap-6"
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
         >
-          {/* Tag */}
           <motion.div custom={0} variants={fadeUp}>
             <span className="inline-block px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] uppercase rounded-full"
               style={{ background: `${spice.accent}12`, color: spice.accent, fontFamily: "'DM Sans', sans-serif" }}>
@@ -133,21 +143,18 @@ function ProductSection({ spice, reverse, bg }) {
             </span>
           </motion.div>
 
-          {/* Title */}
           <motion.h2 custom={1} variants={fadeUp}
             className="text-4xl lg:text-5xl font-bold leading-tight"
             style={{ color: "#2C1A0E", fontFamily: "'Playfair Display', serif" }}>
             {spice.title}
           </motion.h2>
 
-          {/* Description */}
           <motion.p custom={2} variants={fadeUp}
             className="text-base leading-relaxed"
             style={{ color: "#6B4C2A", fontFamily: "'DM Sans', sans-serif" }}>
             {spice.description}
           </motion.p>
 
-          {/* Use Cases */}
           <motion.div custom={3} variants={fadeUp}>
             <p className="text-[11px] font-bold tracking-widest uppercase mb-4" style={{ color: spice.accent, fontFamily: "'DM Sans', sans-serif" }}>
               Best Used For
@@ -162,7 +169,6 @@ function ProductSection({ spice, reverse, bg }) {
             </ul>
           </motion.div>
 
-          {/* Nutritional Info */}
           <motion.div custom={4} variants={fadeUp}
             className="rounded-2xl p-6 border"
             style={{ background: "rgba(255,255,255,0.4)", borderColor: "rgba(201,125,58,0.15)", backdropFilter: "blur(10px)" }}>
@@ -176,11 +182,18 @@ function ProductSection({ spice, reverse, bg }) {
             </div>
           </motion.div>
 
-          {/* CTA */}
           <motion.div custom={5} variants={fadeUp} className="flex flex-wrap items-center gap-6 mt-2">
-            <button className="px-10 py-4 rounded-full text-white font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl"
+            <button 
+              onClick={handleContact}
+              className="px-10 py-4 rounded-full text-white font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl cursor-pointer"
               style={{ background: `linear-gradient(135deg, ${spice.accent} 0%, #2C1A0E 150%)`, boxShadow: `0 10px 30px ${spice.accent}33`, fontFamily: "'DM Sans', sans-serif" }}>
-              Enquire Now
+              Contact Now
+            </button>
+            <button 
+              onClick={handleBuy}
+              className="px-10 py-4 rounded-full text-white font-bold text-xs uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-xl cursor-pointer"
+              style={{ background: `linear-gradient(135deg, ${spice.accent} 0%, #2C1A0E 150%)`, boxShadow: `0 10px 30px ${spice.accent}33`, fontFamily: "'DM Sans', sans-serif" }}>
+              Buy Now
             </button>
             <div className="flex gap-2">
                {spice.sizes.slice(0, 3).map((s, i) => (
@@ -196,151 +209,48 @@ function ProductSection({ spice, reverse, bg }) {
 
 // ─── Data & Page ──────────────────────────────────────────────────────────────
 const SPICES = [
-
   {
-
     name: "Chilli Powder",
-
     title: "Premium Chilli Powder",
-
     wholeName: "Sun-Dried Red Chillies",
-
     accent: "#C0392B",
-
     wholeImage: ChilliImage,
-
     packetImage: ChilliPacket,
-
-    fillGradient: "linear-gradient(to top, #C0392B, #E74C3C88)",
-
+    buyLink: " https://amzn.eu/d/8Ig6ThP", // Add your link here
     particleColors: ["#C0392B", "#e05c4b", "#b03020", "#d44433", "#ff6b5b"],
-
-    description:
-
-      "Stone-ground from hand-picked Guntur and Byadgi chillies, our Chilli Powder delivers a bold, vibrant heat with deep smoky undertones. Free from artificial color and preservatives — pure spice, as nature intended.",
-
-    useCases: [
-
-      "Curries, gravies, and traditional Indian sabzis",
-
-      "Marinades for tandoori and grilled meats",
-
-      "Spice blends, chutneys, and pickles",
-
-      "Restaurant and catering applications",
-
-    ],
-
-    nutrition: [
-
-      { label: "Calories", value: "282kcal" },
-
-      { label: "Protein", value: "13.5g" },
-
-      { label: "Fiber", value: "34g" },
-
-    ],
-
+    description: "Stone-ground from hand-picked Guntur and Byadgi chillies...",
+    useCases: ["Curries, gravies, and traditional Indian sabzis", "Marinades for tandoori", "Spice blends", "Catering applications"],
+    nutrition: [{ label: "Calories", value: "282kcal" }, { label: "Protein", value: "13.5g" }, { label: "Fiber", value: "34g" }],
     sizes: ["100g", "250g", "500g", "1 kg", "5 kg", "Bulk Export"],
-
   },
-
   {
-
     name: "Turmeric Powder",
-
     title: "Golden Turmeric Powder",
-
     wholeName: "Lakadong Turmeric Roots",
-
     accent: "#D4A017",
-
     wholeImage: ChilliImage,
-
     packetImage: ChilliPacket,
-
-    fillGradient: "linear-gradient(to top, #D4A017, #f0c84088)",
-
+    buyLink: " https://amzn.eu/d/8Ig6ThP", // Add your link here
     particleColors: ["#E1AD01", "#f0c840", "#c89a00", "#daba20", "#ffe060"],
-
-    description:
-
-      "Sourced from the curcumin-rich Lakadong variety of Meghalaya, our Turmeric Powder is cold-processed to preserve maximum potency. A single spoonful transforms dishes with vivid golden color and warm, earthy depth.",
-
-    useCases: [
-
-      "Dals, rice dishes, and soups for vibrant color",
-
-      "Golden milk, turmeric lattes, and wellness drinks",
-
-      "Skincare and Ayurvedic home remedies",
-
-      "Food industry and nutraceutical manufacturing",
-
-    ],
-
-    nutrition: [
-
-      { label: "Calories", value: "354kcal" },
-
-      { label: "Curcumin", value: "6.5%" },
-
-      { label: "Iron", value: "41mg" },
-
-    ],
-
+    description: "Sourced from the curcumin-rich Lakadong variety of Meghalaya...",
+    useCases: ["Dals and rice", "Golden milk lattes", "Skincare", "Food industry"],
+    nutrition: [{ label: "Calories", value: "354kcal" }, { label: "Curcumin", value: "6.5%" }, { label: "Iron", value: "41mg" }],
     sizes: ["100g", "250g", "500g", "1 kg", "5 kg", "Bulk Export"],
-
   },
-
   {
-
     name: "Coriander Powder",
-
     title: "Aromatic Coriander Powder",
-
     wholeName: "Rajasthani Coriander Seeds",
-
     accent: "#5E8A3A",
-
     wholeImage: ChilliImage,
-
     packetImage: ChilliPacket,
-
-    fillGradient: "linear-gradient(to top, #5E8A3A, #9dca6888)",
-
+    buyLink: " https://amzn.eu/d/8Ig6ThP", // Add your link here
     particleColors: ["#7D9E5A", "#9ab870", "#5e8a3a", "#8ab060", "#b5d090"],
-
-    description:
-
-      "Slow-roasted and freshly milled from premium Rajasthani coriander seeds, our Coriander Powder carries a citrusy, floral fragrance that lifts every dish. The cornerstone of Indian cooking — mild yet indispensable.",
-
-    useCases: [
-
-      "Base spice for gravies, curries, and kormas",
-
-      "Dry rubs for kebabs and roasted vegetables",
-
-      "Spice mixes like garam masala and chaat masala",
-
-      "Digestive herbal teas and Ayurvedic formulations",
-
-    ],
-
-    nutrition: [
-
-      { label: "Calories", value: "298kcal" },
-
-      { label: "Calcium", value: "709mg" },
-
-      { label: "Fiber", value: "41g" },
-
-    ],
-
+    description: "Slow-roasted and freshly milled from premium Rajasthani seeds...",
+    useCases: ["Gravies and kormas", "Dry rubs", "Garam masala", "Herbal teas"],
+    nutrition: [{ label: "Calories", value: "298kcal" }, { label: "Calcium", value: "709mg" }, { label: "Fiber", value: "41g" }],
     sizes: ["100g", "250g", "500g", "1 kg", "5 kg", "Bulk Export"],
-
   },
-
 ];
 
 const BG = ["#F6F1E8", "#FFFBF5", "#F6F1E8"];
@@ -352,7 +262,6 @@ export default function Products() {
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
       `}</style>
 
-      {/* Hero Header for Products Page */}
       <div className="w-full pt-32 pb-16 px-6 text-center">
         <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-[10px] tracking-[0.3em] font-bold uppercase" style={{ color: "#C97D3A", fontFamily: "'DM Sans', sans-serif" }}>
           Farm to Table · Est. 2010

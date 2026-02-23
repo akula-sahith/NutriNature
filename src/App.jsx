@@ -2,6 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductPage from "./pages/ProductPage";
+import ContactPage from "./pages/ContactPage";
+import B2BPage from "./pages/B2BPage";
+import AboutPage from "./pages/AboutPage";
 // import Products from "./pages/Products";
 // import Chilli from "./pages/Chilli";
 // import Turmeric from "./pages/Turmeric";
@@ -17,6 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<ProductPage/>} />
+        <Route path="/contact" element={<ContactPage/>}/>
+        <Route path="/b2b" element={<B2BPage/>}/>
+        <Route path="/about" element={<AboutPage/>}/>
         {/* // <Route path="/products/chilli" element={<Chilli />} />
         // <Route path="/products/turmeric" element={<Turmeric />} />
         // <Route path="/products/coriander" element={<Coriander />} />

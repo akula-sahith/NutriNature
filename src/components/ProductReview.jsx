@@ -187,7 +187,7 @@ export default function ProductsPreview() {
             initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
             whileInView={{ opacity: 1, x: "-135%" }} // Burst out to the left
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            transition={{ duration: 4.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             style={{
               position: "absolute",
               zIndex: 10,
@@ -214,7 +214,7 @@ export default function ProductsPreview() {
             initial={{ opacity: 0, x: "-50%", left: "50%" }} // Start at dead center
             whileInView={{ opacity: 1, x: "35%" }} // Burst out to the right
             viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            transition={{ duration: 4.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             style={{
               position: "absolute",
               zIndex: 10,
@@ -241,7 +241,7 @@ export default function ProductsPreview() {
             initial={{ opacity: 0, x: "-50%", scale: 0.8 }}
             whileInView={{ opacity: 1, x: "-50%", scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 1.2, delay: 0.3 }}
             style={{
               position: "absolute",
               left: "50%",
